@@ -1,5 +1,6 @@
 import 'package:bloc_clean_code/ui/counter/counter_screen.dart';
 import 'package:bloc_clean_code/ui/image_pick/pick_image_screen.dart';
+import 'package:bloc_clean_code/ui/post/post_screen.dart';
 import 'package:bloc_clean_code/ui/switch/switch_example_screen.dart';
 import 'package:bloc_clean_code/ui/todo/to_do_screen/to_do_screen.dart';
 import 'package:flutter/material.dart';
@@ -71,6 +72,17 @@ class NavigationScreen extends StatelessWidget {
                 );
               },
               child: Text("Favourite"),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => PostScreen(),
+                  ),
+                );
+              },
+              child: Text("Post API"),
             ),
           ],
         ),
