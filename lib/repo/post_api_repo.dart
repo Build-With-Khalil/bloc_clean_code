@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:bloc_clean_code/model/PostsAPIModel.dart';
+import 'package:bloc_clean_code/model/post_api_model.dart';
 import 'package:dio/dio.dart';
 
 class PostAPIRepo {

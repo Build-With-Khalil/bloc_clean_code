@@ -1,4 +1,4 @@
-import 'package:bloc_clean_code/model/PostsAPIModel.dart';
+import 'package:bloc_clean_code/model/post_api_model.dart';
 import 'package:bloc_clean_code/utils/enums.dart';
 import 'package:equatable/equatable.dart';
 
