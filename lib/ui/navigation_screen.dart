@@ -4,6 +4,8 @@ import 'package:bloc_clean_code/ui/switch/switch_example_screen.dart';
 import 'package:bloc_clean_code/ui/todo/to_do_screen/to_do_screen.dart';
 import 'package:flutter/material.dart';
 
+import 'favourite/favourite_screen.dart';
+
 class NavigationScreen extends StatelessWidget {
   const NavigationScreen({super.key});
 
@@ -58,6 +60,17 @@ class NavigationScreen extends StatelessWidget {
                 );
               },
               child: Text("todo"),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => FavouriteScreen(),
+                  ),
+                );
+              },
+              child: Text("Favourite"),
             ),
           ],
         ),

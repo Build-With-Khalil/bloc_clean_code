@@ -1,7 +1,9 @@
 import 'package:bloc_clean_code/bloc/counter/counter_bloc.dart';
+import 'package:bloc_clean_code/bloc/favourite/favourite_bloc.dart';
 import 'package:bloc_clean_code/bloc/image_picker/image_picker_bloc.dart';
 import 'package:bloc_clean_code/bloc/switch/switch_bloc.dart';
 import 'package:bloc_clean_code/bloc/todo/todo_bloc.dart';
+import 'package:bloc_clean_code/repo/fav_repo.dart';
 import 'package:bloc_clean_code/ui/navigation_screen.dart';
 import 'package:bloc_clean_code/utils/image_picker_utils.dart';
 import 'package:flutter/material.dart';
@@ -30,10 +32,15 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => TodoBloc(),
         ),
+        BlocProvider(
+          create: (context) => FavouriteBloc(FavRepo()),
+        ),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
         debugShowCheckedModeBanner: false,
+        themeMode: ThemeMode.dark,
+        darkTheme: ThemeData.dark(),
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
