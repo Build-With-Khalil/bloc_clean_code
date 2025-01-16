@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:bloc_clean_code/bloc/favourite/favourite_event.dart';
 import 'package:bloc_clean_code/bloc/favourite/favourite_state.dart';
-import 'package:bloc_clean_code/model/favourite_item_model.dart';
-import 'package:bloc_clean_code/repo/fav_repo.dart';
+import 'package:bloc_clean_code/model/fav/favourite_item_model.dart';
+import 'package:bloc_clean_code/repo/fav/fav_repo.dart';
 
 class FavouriteBloc extends Bloc<FavouriteEvent, FavouriteState> {
   List<FavouriteItemModel> favouriteList = [];

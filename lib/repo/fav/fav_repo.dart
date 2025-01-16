@@ -1,4 +1,4 @@
-import 'package:bloc_clean_code/model/favourite_item_model.dart';
+import 'package:bloc_clean_code/model/fav/favourite_item_model.dart';
 
 class FavRepo {
   Future<List<FavouriteItemModel>> fetchItem() async {

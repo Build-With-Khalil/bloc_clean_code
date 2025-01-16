@@ -1,5 +1,5 @@
 import 'package:bloc_clean_code/bloc/favourite/favourite_bloc.dart';
-import 'package:bloc_clean_code/model/favourite_item_model.dart';
+import 'package:bloc_clean_code/model/fav/favourite_item_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

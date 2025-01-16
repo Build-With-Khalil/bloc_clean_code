@@ -1,5 +1,6 @@
 import 'package:bloc_clean_code/bloc/post/post_api_bloc.dart';
 import 'package:bloc_clean_code/bloc/post/post_api_state.dart';
+import 'package:bloc_clean_code/repo/post_api_repo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -22,39 +23,32 @@ class PostScreen extends StatelessWidget {
       ),
       body: BlocBuilder<PostApiBloc, PostApiState>(
         builder: (context, state) {
-          return ListView.builder(
-            itemCount: state.postList.length,
-            itemBuilder: (context, index) {
-              final postList = state.postList[index];
+          return FutureBuilder(
+            future: PostAPIRepo().fetchPost(),
+            builder: (context, snapshot) {
               switch (state.postStatus) {
                 case PostStatus.loading:
                   return const Center(
                     child: CircularProgressIndicator(),
                   );
-                case PostStatus.error:
-                  return const Center(
-                    child: Text('Something went wrong'),
-                  );
+
                 case PostStatus.success:
-                  return Card(
-                    child: ListTile(
-                      leading: CircleAvatar(
-                        child: Text(
-                          postList.id.toString(),
+                  return ListView.builder(
+                    itemCount: state.postList.length,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        title: Text(
+                          state.postList[index].name.toString(),
                         ),
-                      ),
-                      title: Text(
-                        postList.name.toString(),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      subtitle: Text(
-                        postList.body.toString(),
-                        maxLines: 3,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
+                        subtitle: Text(
+                          state.postList[index].email.toString(),
+                        ),
+                      );
+                    },
                   );
+                case PostStatus.error:
+                  // TODO: Handle this case.
+                  throw UnimplementedError();
               }
             },
           );
