@@ -7,3 +7,10 @@ abstract class PostApiEvent extends Equatable {
 }
 
 class FetchPostApiEvent extends PostApiEvent {}
+
+class SearchPostApiEvent extends PostApiEvent {
+  final String search;
+  const SearchPostApiEvent(this.search);
+  @override
+  List<Object> get props => [search];
+}

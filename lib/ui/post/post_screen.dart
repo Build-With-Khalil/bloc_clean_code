@@ -1,6 +1,5 @@
 import 'package:bloc_clean_code/bloc/post/post_api_bloc.dart';
 import 'package:bloc_clean_code/bloc/post/post_api_state.dart';
-import 'package:bloc_clean_code/repo/post_api_repo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -12,46 +11,75 @@ class PostScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback(
-      (_) {
-        context.read<PostApiBloc>().add(FetchPostApiEvent());
-      },
-    );
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      context.read<PostApiBloc>().add(FetchPostApiEvent());
+    });
     return Scaffold(
       appBar: AppBar(
         title: const Text('Post App'),
       ),
       body: BlocBuilder<PostApiBloc, PostApiState>(
         builder: (context, state) {
-          return FutureBuilder(
-            future: PostAPIRepo().fetchPost(),
-            builder: (context, snapshot) {
-              switch (state.postStatus) {
-                case PostStatus.loading:
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-
-                case PostStatus.success:
-                  return ListView.builder(
-                    itemCount: state.postList.length,
-                    itemBuilder: (context, index) {
-                      return ListTile(
-                        title: Text(
-                          state.postList[index].name.toString(),
-                        ),
-                        subtitle: Text(
-                          state.postList[index].email.toString(),
-                        ),
-                      );
+          switch (state.postStatus) {
+            case PostStatus.loading:
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            case PostStatus.error:
+              return Center(
+                child: Text(state.message),
+              );
+            case PostStatus.success:
+              return Column(
+                children: [
+                  TextFormField(
+                    decoration: const InputDecoration(
+                      hintText: 'Search with Id',
+                      border: OutlineInputBorder(),
+                    ),
+                    onChanged: (value) {
+                      context.read<PostApiBloc>().add(
+                            SearchPostApiEvent(value),
+                          );
                     },
-                  );
-                case PostStatus.error:
-                  // TODO: Handle this case.
-                  throw UnimplementedError();
-              }
-            },
-          );
+                  ),
+                  Expanded(
+                    child: state.searchMessage.isNotEmpty
+                        ? Center(
+                            child: Text(
+                              state.searchMessage.toString(),
+                            ),
+                          )
+                        : ListView.builder(
+                            itemCount: state.temPostList.isEmpty
+                                ? state.postList.length
+                                : state.temPostList.length,
+                            itemBuilder: (context, index) {
+                              if (state.temPostList.isNotEmpty) {
+                                return ListTile(
+                                  title: Text(
+                                    state.temPostList[index].email.toString(),
+                                  ),
+                                  subtitle: Text(
+                                    state.temPostList[index].body.toString(),
+                                  ),
+                                );
+                              } else {
+                                return ListTile(
+                                  title: Text(
+                                    state.postList[index].email.toString(),
+                                  ),
+                                  subtitle: Text(
+                                    state.postList[index].body.toString(),
+                                  ),
+                                );
+                              }
+                            },
+                          ),
+                  ),
+                ],
+              );
+          }
         },
       ),
     );
